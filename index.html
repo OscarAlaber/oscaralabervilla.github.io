@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Óscar Alaber Villa | CV y Portafolio Interactivo</title>
+    <meta name="description" content="Portafolio y CV interactivo de Óscar Alaber Villa, Diseñador Gráfico y Desarrollador Web Front-end.">
+    <meta name="author" content="Óscar Alaber">
+    
+    <!-- Librería para la gráfica de procesos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Estilos CSS Consolidados con Metodología BEM -->
+    <style>
+        /* ------------------------------------------- */
+        /* 01) VARIABLES Y ESTILOS GLOBALES            */
+        /* ------------------------------------------- */
+        :root {
+            --bg-color-light: #f4f5f9;
+            --bg-color-medium: #ffffff;
+            --text-color: #1c1c1c;
+            --text-color-light: #6e6e73;
+            --accent-color: #007aff;
+            --accent-color-hover: #0056b3;
+            --border-color: #e5e5e5;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode {
+            --bg-color-light: #121212;
+            --bg-color-medium: #1f1f1f;
+            --text-color: #e0e0e0;
+            --text-color-light: #a0a0a0;
+            --accent-color: #3f9fff;
+            --accent-color-hover: #1e87f0;
+            --border-color: #333333;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color-light);
+            color: #7E8794;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.875rem; /* 30px */
+            line-height: 2.25rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #7E8794;
+        }
+        
+        /* ------------------------------------------- */
+        /* 02) COMPONENTES GENERALES (BEM)             */
+        /* ------------------------------------------- */
+
+        .card {
+            background-color: var(--bg-color-medium);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease-in-out;
+        }
+        .card--padded-large {
+            padding: 2.5rem;
+        }
+
+        .button {
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+            font-weight: 600;
+        }
+        .button--cta {
+            background-color: #7E8794;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+        }
+        .button--cta:hover {
+            background-color: #155eae;
+            transform: translateY(-2px);
+        }
+        
+        /* ------------------------------------------- */
+        /* 03) ESTRUCTURA Y SECCIONES (BEM)            */
+        /* ------------------------------------------- */
+
+        .site-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-top: 2rem;
+        }
+        .site-header__title {
+            font-size: 2.25rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 0.5rem;
+            color: #7E8794;
+        }
+        @media (min-width: 768px) {
+            .site-header { margin-bottom: 4rem; }
+            .site-header__title { font-size: 3rem; }
+        }
+        .site-header__subtitle {
+            font-size: 1.125rem;
+            color: var(--text-color-light);
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .site-header__actions {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .site-header__status {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .avatar {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .avatar__image {
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0;
+            background: url(img/mi_foto_Oscar_alaber_villa.jpg) no-repeat center center;
+            background-size: cover;
+            animation: morph 8s ease-in-out infinite 1s;
+            background-blend-mode: multiply;
+            box-shadow: inset 0 0 0 9px #7E8794;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        @keyframes morph {
+             0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+             50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+             100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        .text-animated-gradient {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 1.7rem;
+            background-image: linear-gradient(var(--angle), #155eae, #00b78d, #7E8794, #7E8794);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: move-gradient 7s linear alternate infinite;
+        }
+        @keyframes move-gradient {
+            0% { --angle: 0.1turn },
+            25% { --angle: 0.6turn },
+            50% { --angle: 0.9turn },
+            75% { --angle: 0.1turn }
+            100% { --angle: 1.5turn }
+        }
+        @property --angle {
+            syntax: "<angle>"; inherits: false; initial-value: 0.5turn;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            color: #9ca3af;
+            border-radius: 100%;
+            border: 2px solid #7E8794;
+            background: none;
+            cursor: pointer;
+        }
+        .theme-toggle__icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .theme-toggle__icon--hidden {
+            display: none;
+        }
+        
+        .about-section__grid {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: left;
+        }
+        @media (min-width: 768px) {
+            .about-section__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .about-section__title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #7E8794;
+        }
+        .about-section__list {
+            list-style: none;
+            color: var(--text-color-light);
+        }
+        .about-section__list li {
+            margin-bottom: 0.5rem;
+        }
+        .about-section__list strong {
+            color: #7E8794;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .skills-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 1024px) { .skills-grid { grid-template-columns: repeat(5, 1fr); } }
+        .skills-grid__item {
+            background-color: var(--bg-color-medium);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            color: var(--text-color-light);
+            transition: all 0.3s ease-in-out;
+        }
+        .skills-grid__item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        .skills-grid__item-image {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        .skills-grid__item-title {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #7E8794;
+        }
+        
+        .processes-section__nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .processes-section__nav-button {
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid #7E8794;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            background-color: transparent;
+            color: #7E8794;
+        }
+        @media (min-width: 768px) { .processes-section__nav-button { font-size: 1rem; } }
+        .processes-section__nav-button--is-active {
+            background-color: #155eae;
+            color: white;
+            border-color: #155eae;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 122, 255, 0.2), 0 4px 6px -4px rgba(0, 122, 255, 0.1);
+        }
+        .processes-section__phase-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .processes-section__phase-button {
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            background-color: transparent;
+            color: var(--text-color-light);
+        }
+        .processes-section__phase-button--is-active {
+            background-color: #7E8794;
+            color: white;
+            border-color: #7E8794;
+        }
+        .processes-section__details-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        @media (min-width: 768px) { .processes-section__details-grid { grid-template-columns: repeat(2, 1fr); } }
+        .processes-section__details-content {
+             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .processes-section__details-content--is-loading {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .transversal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .transversal-grid { grid-template-columns: repeat(3, 1fr); } }
+        .transversal-grid__item {
+            background-color: var(--bg-color-medium);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            min-height: 120px;
+        }
+         .transversal-grid__item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        .transversal-grid__item-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .transversal-grid__item-title {
+            font-weight: 600;
+            color: #7E8794;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .portfolio-grid { grid-template-columns: repeat(3, 1fr); } }
+        .portfolio-grid__item {
+            background-color: var(--bg-color-medium);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .portfolio-grid__item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        .portfolio-grid__item-logo {
+            width: 8rem;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        .portfolio-grid__item-title {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #7E8794;
+        }
+        .portfolio-grid__item-description {
+            font-size: 0.875rem;
+            color: var(--text-color-light);
+        }
+        
+        /* ------------------------------------------- */
+        /* 04) MODALES (BEM)                           */
+        /* ------------------------------------------- */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s forwards;
+        }
+        .modal--is-visible {
+            display: flex;
+        }
+        .modal__content {
+            position: relative;
+            background-color: var(--bg-color-medium);
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation: slideUp 0.5s forwards;
+        }
+        .modal__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .modal__title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #7E8794;
+        }
+        .modal__close-button {
+            color: #7E8794;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .modal__close-button:hover {
+            color: #7E8794;
+        }
+        .modal__body {
+            padding-top: 1rem;
+        }
+        .modal__body p, .modal__body li {
+            color: var(--text-color-light);
+        }
+         .modal__body strong, .modal__body b {
+            color: #7E8794;
+        }
+        .modal__body ul {
+            list-style-position: inside;
+        }
+        .modal__body-description {
+            margin-bottom: 1.5rem;
+        }
+        .modal__body-points {
+            list-style: none;
+            padding-left: 0;
+        }
+        .modal__body-points li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .modal__body-points span:first-child {
+            margin-right: 0.5rem;
+            color: #7E8794;
+        }
+
+        .carousel { position: relative; }
+        .carousel__item { display: none; }
+        .carousel__item--is-active { display: block; }
+        .carousel__image {
+            width: 100%;
+            max-height: 70vh;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+        .carousel__button {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .carousel__button--prev { left: 0; border-radius: 0 3px 3px 0; }
+        .carousel__button--next { right: 0; border-radius: 3px 0 0 3px; }
+        .carousel__button:hover { background-color: rgba(0,0,0,0.8); }
+        
+        .chart-container {
+            position: relative;
+            height: 380px;
+            width: 100%;
+            max-width: 429px;
+            margin: auto;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(70px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        body {
+           font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #7E8794;
+        }
+
+        /* Contenedor principal del portfolio de trabajos */
+        .work-gallery-container {
+            padding: 20px;
+        }
+
+        /* Título y descripción */
+        .work-gallery-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .work-gallery-header h1 {
+            margin: 0 0 10px 0;
+        }
+
+        /* Sección de logos de empresas en horizontal */
+        .work-gallery-logos-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .work-gallery-logo-item {
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .work-gallery-logo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .work-gallery-logo-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: contain;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .work-gallery-logo-item span {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #555;
+            font-weight: bold;
+        }
+
+        /* Contenedor principal del pop-up (modal) */
+        #work-gallery-modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+        }
+
+        #work-gallery-modal-backdrop.work-gallery-is-visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .work-gallery-modal-container {
+            position: relative;
+            background-color: white;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        #work-gallery-modal-backdrop.work-gallery-is-visible .work-gallery-modal-container {
+            transform: scale(1);
+        }
+
+        .work-gallery-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: #f1f1f1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .work-gallery-modal-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .work-gallery-close-btn {
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2em;
+            line-height: 1;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.2s ease;
+        }
+
+        .work-gallery-close-btn:hover {
+            color: #f00;
+        }
+
+        #work-gallery-modal-content {
+            padding: 10px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .work-gallery-media-item {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .work-gallery-media-item img,
+        .work-gallery-media-item video {
+            width: 80%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .work-gallery-media-item .work-gallery-media-caption {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <header class="site-header">
+            <button id="theme-toggle" class="theme-toggle">
+                <svg id="sun-icon" class="theme-toggle__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="moon-icon" class="theme-toggle__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+            <div class="avatar">
+                <div class="avatar__image"></div>
+            </div>
+            <h1 class="site-header__title">Óscar Alaber Villa</h1>
+            <p class="site-header__subtitle">Diseñador Gráfico · Desarrollador Web Front-end <br> Marketing digital · Fotografia y retoque profesional</p>
+            <div class="site-header__actions">
+                <a href="https://es.linkedin.com/in/oscaralaber" target="_blank" class="button button--cta" style="border-radius: 8px;">LinkedIn</a>
+                <a href="#contact" class="button button--cta">Contacto</a>
+            </div>
+            <div class="site-header__status">
+                <h2 class="text-animated-gradient">Freelance <span style="color:#00b78d;">ON</span></h2>
+                <h2 class="text-animated-gradient">Entrevistas <span style="color:#00b78d">ON</span></h2>
+            </div>
+            <div class="site-header__status">
+                <a href="https://upwork.com/freelancers/~01ae4dee8c64d93296"><img style="width: 108px;"src="img/freelance/upwork.png"></a>
+                <a href="https://www.malt.es/profile/oscaralaber1"><img style="width: 108px;"src="img/freelance/malt.png"></a>
+                <script id="cronoscript" src="https://www.cronoshare.com/assets/cronoSealWidget-ba977fd463539c4e3a5e7cec83eb3f99.js" type="text/javascript" domain="https://www.cronoshare.com" csspath="/assets/cronoSealWidget-c1a93f6d3bd9edeb8fc8ba80fcc1be00.css"></script><a href="https://www.cronoshare.com/croner-4044447-oscar-alaber" target="_blank" title="Mira el perfil de Oscar Alaber en Cronoshare" class="cronoWidget" style="width: 75px; height: 75px"><svg viewBox="0 0 100 100"><defs><path id="arc" d="M11 50 A 39 39 0 0 0 89 50"></path></defs><circle cx="50%" cy="50%" r="50%" fill="#ffffff"></circle><circle cx="50%" cy="50%" r="43%" stroke="#49abe8" stroke-width="1.2%" fill-opacity="0"></circle><image width="80%" x="10%" y="35%" href="https://www.cronoshare.com/assets/badges/logo-normal-89ff9c34f6ff22b027fae7dbbc4c0c48.svg"></image><image width="90%" x="5%" y="2%" href="https://www.cronoshare.com/assets/badges/favicon-blue-252f914684bd5b175f45e5e7a5a6c41e.svg"></image><text text-anchor="middle" x="50%" y="60%" fill="#49abe8" font-family="Calibri" font-size="70%" font-weight="bold">PROFESIONAL</text><text fill="#49abe8" font-family="Calibri" font-size="70%" font-weight="bold" text-anchor="middle"><textPath xlink:href="#arc" startOffset="50%">DESDE 2022</textPath></text></svg></a>
+                <img style="width: 108px; height: 50%;"src="img/freelance/pronto-pro.png">
+                </div>
+            
+        </header>
+
+        <main>
+            <section id="about" class="section">
+                <h2 class="section-title">Sobre Mí</h2>
+                <div class="card">
+                    <p style="text-align: center; max-width: 48rem; margin: 0 auto;">
+                        Diseñador gráfico y desarrollador web con más de 18 años de experiencia. Mi trayectoria comenzó en las artes gráficas, trabajando para editoriales, lo que me otorgó una base sólida en producción visual. Desde 2020, he realizado una transición exitosa al mundo digital, especializándome en desarrollo front-end, diseño UI/UX y Marketing digital. Mi enfoque es fusionar la estética del diseño con la funcionalidad técnica para crear soluciones digitales completas y efectivas.
+                    </p>
+                    <div class="about-section__grid">
+                        <div>
+                            <h3 class="about-section__title">Datos</h3>
+                            <ul class="about-section__list">
+                                <li><strong>Edad:</strong> 42</li>
+                                <li><strong>Residencia:</strong> Madrid, España</li>
+                                <li><strong>Email:</strong> oalaber@icloud.com</li>
+                                <li><strong>Teléfono:</strong> +34 635 77 09 52</li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="about-section__title">Formación</h3>
+                            <ul class="about-section__list">
+                                <li><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/salesianos-atocha.jpeg"><strong>Salesianos de Atocha</strong><br>Diseño y Artes Gráficas (2004-2006)</li><br>
+                                <li><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/cice.jpg"><strong>Cice, Escuela de nuevas tecnologías</strong><br>Master en Diseño y Desarrollo Web (2018-2020) en colaboración con la Universidad de Alcalá de Henares.</li><br>
+                                 <li><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/lagasca-serrano.jpg"><strong>Escuela Lagasca</strong><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/eie.png"><br>Certificación oficial de programación, desarrollo y publicación de paginas web (03-2025 - 10-2025) - Certificacióm Nivel 2 - Oficial - Ministerio de Educación</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="what-i-do" class="section">
+                <h2 class="section-title">Lo que hago</h2>
+                <div class="card card--padded-large">
+                    <p style="text-align: center; max-width: 48rem; margin: 0 auto 2rem auto; color: var(--text-color-light)">
+                        Mi experiencia profesional se expande en diversas áreas de la creatividad y el desarrollo web Front-End. <br>A continuación, se detallan mis principales competencias.
+                    </p>
+                    <div class="skills-grid">
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="disenoEditorial"><img class="skills-grid__item-image" src="img/news/diseño_editorial.png" alt="Diseño Editorial"><h4 class="skills-grid__item-title">Editorial</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="disenoWeb"><img class="skills-grid__item-image" src="img/news/customweb.png" alt="Diseño Web"><h4 class="skills-grid__item-title">Web</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="uxUi"><img class="skills-grid__item-image" src="img/news/ux_ui.jpg" alt="UX / UI"><h4 class="skills-grid__item-title">UX / UI</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="disenoPublicitario"><img class="skills-grid__item-image" src="img/news/publicitario.png" alt="Diseño Publicitario"><h4 class="skills-grid__item-title">Publicitario</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="disenoOffline"><img class="skills-grid__item-image" src="img/news/diseno-offline.png" alt="Diseño Offline"><h4 class="skills-grid__item-title">Offline</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="seoSem"><img class="skills-grid__item-image" src="img/news/seo_sem.png" alt="SEO / SEM"><h4 class="skills-grid__item-title">SEO / SEM</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="fotografiaProfesional"><img class="skills-grid__item-image" src="img/news/fotografia_vision.png" alt="Fotografía Profesional"><h4 class="skills-grid__item-title">Fotografía</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="retoqueFotografico"><img class="skills-grid__item-image" src="img/news/retoque-fotografico.png" alt="Retoque Fotográfico"><h4 class="skills-grid__item-title">Retoque</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="redesSociales"><img class="skills-grid__item-image" src="img/news/marketingredessociales.png" alt="Redes Sociales"><h4 class="skills-grid__item-title">Redes Sociales</h4></div>
+                        <div class="skills-grid__item js-text-modal-trigger" data-type="skill" data-id="emailMarketing"><img class="skills-grid__item-image" src="img/news/emailing.png" alt="Email Marketing"><h4 class="skills-grid__item-title">Emailing</h4></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="processes" class="section processes-section">
+                <h2 class="section-title">Los procesos de mi Trabajo</h2>
+                <nav class="processes-section__nav">
+                    <button class="processes-section__nav-button processes-section__nav-button--is-active" data-section="webDevelopment">Desarrollo Web</button>
+                    <button class="processes-section__nav-button" data-section="graphicDesign">Diseño Gráfico</button>
+                    <button class="processes-section__nav-button" data-section="digitalMarketing">Marketing Digital</button>
+                    <button class="processes-section__nav-button" data-section="offlineDesign">Diseño Offline</button>
+                </nav>
+                <div class="card card--padded-large">
+                    <div id="process-navigator" style="margin-bottom: 2rem;">
+                        <h3 id="section-title-display" class="section-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;"></h3>
+                        <p id="section-summary-display" style="text-align: center; max-width: 48rem; margin: 0 auto 2rem auto; color: var(--text-color-light);"></p>
+                        <div class="processes-section__phase-nav">
+                            <!-- Botones de fase se insertan aquí por JS -->
+                        </div>
+                    </div>
+                    <div class="processes-section__details-grid">
+                        <div id="phase-text-content" class="processes-section__details-content">
+                            <h4 id="phase-title" style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;"></h4>
+                            <p id="phase-summary" style="margin-bottom: 1.5rem;"></p>
+                            <div style="margin-bottom: 1.5rem;">
+                                <h5 style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0.75rem;">🎯 Objetivos Principales</h5>
+                                <ul id="phase-objectives" class="about-section__list"></ul>
+                            </div>
+                            <div>
+                                <h5 style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0.75rem;">🔑 Entregables Clave</h5>
+                                <div id="phase-deliverables" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                            </div>
+                        </div>
+                        <div id="phase-chart-content" class="processes-section__details-content">
+                             <h5 style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0.75rem; text-align: center;">Distribución de Esfuerzo</h5>
+                             <div class="chart-container">
+                                <canvas id="effortChart"></canvas>
+                             </div>
+                             <p style="text-align: center; font-size: 0.875rem; color: var(--text-color-light); margin-top: 0.5rem;">Enfoque relativo del proyecto en cada etapa.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="portfolio" class="section">
+                <h2 class="section-title">Mi Portafolio</h2>
+                <div class="card">
+                     <h3 style="text-align:center; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Trabajos Editoriales y Publicitarios</h3>
+                    <p style="text-align: center; max-width: 48rem; margin: 0 auto 2rem auto; color: var(--text-color-light);">
+                        Una muestra de mi trabajo en periódicos, editoriales y agencias. Haz clic para ver ejemplos.
+                    </p>
+                </div>
+            
+           <div class="work-gallery-container">
+        <div class="work-gallery-header">
+            <h1>Portfolio de Proyectos</h1>
+        </div>
+        <div class="work-gallery-logos-grid">
+            <div class="work-gallery-logo-item" data-company-id="empresa1">
+                <img src="img/logotipos_empresas/20minutos.png" alt="Logo 20 minutos">
+                <span>20 minutos</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa2">
+                <img src="img/logotipos_empresas/2.png" alt="Logo Marca">
+                <span>Marca</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa3">
+                <img src="img/logotipos_empresas/expansion.jpg" alt="Logo Expansion">
+                <span>Expansionb</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa4">
+                <img src="img/logotipos_empresas/diario_medico.png" alt="Logo Diario Médico">
+                <span>Diario Médico</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa5">
+                <img src="img/logotipos_empresas/018.png" alt="Logo diplomacia">
+                <span>Diplomacia</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa6">
+                <img src="img/logotipos_empresas/tramite.png" alt="Logo trámite">
+                <span>Tranmite</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa7">
+                <img src="img/logotipos_empresas/logoAtrapalo.png" alt="Logo Atrápalo">
+                <span>Atrápalo</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa8">
+                <img src="img/logotipos_empresas/masquevapor.svg" alt="Logo masquevapor.com">
+                <span>Masquevapor.com</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa9">
+                <img src="img/logotipos_empresas/logo-gris.png" alt="Logo miplacer.net">
+                <span>Miplacer.net</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa10">
+                <img src="img/logotipos_empresas/023.png" alt="Logo Tucaramesauna.com">
+                <span>Tucaramesauna.com</span>
+            </div>
+            <div class="work-gallery-logo-item" data-company-id="empresa10">
+                <img src="img/logotipos_empresas/inmoamp.png" alt="Logo Inmoamp.com">
+                <span>Inmoamp.com</span>
+            </div>
+        </div>
+        <p style="text-align: center; color: #999;">Haz clic en el logo de una empresa para ver el portfolio</p>
+    </div>
+
+    <div id="work-gallery-modal-backdrop">
+        <div class="work-gallery-modal-container">
+            <div class="work-gallery-modal-header">
+                <h3 id="work-gallery-modal-title"></h3>
+                <button class="work-gallery-close-btn">&times;</button>
+            </div>
+            <div id="work-gallery-modal-content">
+                </div>
+        </div>
+    </div>
+
+            <section id="transversal" class="section">
+                <h2 class="section-title">Factores Críticos Transversales<br><span>Siempre a tener en cuenta</span></h2>
+                 <p style="text-align: center; max-width: 48rem; margin: 0 auto 2rem auto; color: var(--text-color-light);">
+                    Estos elementos son vitales durante todo el ciclo de vida de cualquier proyecto profesional.
+                </p>
+                <div id="transversal-grid" class="transversal-grid">
+                    <!-- Contenido generado por JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL PARA PORTAFOLIO (CON CAROUSEL) -->
+    <div id="portfolio-modal" class="modal">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="portfolio-modal-title" class="modal__title"></h2>
+                <span class="modal__close-button js-close-modal">&times;</span>
+            </div>
+            <div id="modal-carousel" class="carousel">
+                <a class="carousel__button carousel__button--prev">&#10094;</a>
+                <a class="carousel__button carousel__button--next">&#10095;</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL GENÉRICO PARA TEXTO (Habilidades y Factores Transversales) -->
+    <div id="text-modal" class="modal">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2 id="text-modal-title" class="modal__title"></h2>
+                <span class="modal__close-button js-close-modal">&times;</span>
+            </div>
+            <div id="text-modal-body" class="modal__body">
+                <!-- Contenido generado por JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT CONSOLIDADO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- DATOS DE LA APLICACIÓN ---
+            const appData = {
+            sections: {
+                webDevelopment: {
+                    title: 'Desarrollo Web',
+                    summary: 'Una exploración interactiva del proceso completo, desde la idea inicial hasta el lanzamiento y más allá.',
+                    phases: [
+                        { id: 'web_discovery', name: '1. Descubrimiento y Estrategia', title: 'Fase de Descubrimiento y Estrategia', summary: 'Esta fase inicial es fundamental para establecer una comprensión compartida y una dirección estratégica para el proyecto, sumergiéndose en las necesidades del cliente, sus objetivos de negocio y el público al que se dirige.', objectives: ['Análisis profundo de requisitos y objetivos de negocio.', 'Investigación del público objetivo y la competencia.', 'Definición precisa del alcance y viabilidad del proyecto.', 'Establecimiento de Indicadores Clave de Rendimiento (KPIs).'], deliverables: ['DRP', 'Análisis Competencia', 'User Personas', 'KPIs Definidos', 'Plan Inicial'] },
+                        { id: 'web_planning', name: '2. Planificación y AI', title: 'Fase de Planificación y Arquitectura de la Información', summary: 'Una vez definidos los objetivos, esta fase se centra en estructurar el contenido y la experiencia del usuario de manera lógica y eficiente, creando la columna vertebral del sitio.', objectives: ['Creación de un mapa del sitio (Sitemap) jerárquico.', 'Diseño de flujos de usuario para tareas clave.', 'Desarrollo de wireframes de baja fidelidad.', 'Elaboración de una estrategia de contenido completa.'], deliverables: ['Sitemap', 'Flujos de Usuario', 'Wireframes', 'Estrategia Contenido', 'Specs Técnicas'] },
+                        { id: 'web_design', name: '3. Diseño UX/UI', title: 'Fase de Diseño y Experiencia de Usuario (UX/UI)', summary: 'Esta fase transforma los wireframes en una interfaz visualmente atractiva y funcionalmente intuitiva, centrándose tanto en la usabilidad (UX) como en la estética (UI).', objectives: ['Diseño de la experiencia de usuario (UX) enfocado en la facilidad de uso.', 'Creación de la interfaz de usuario (UI) coherente con la marca.', 'Garantizar un diseño responsivo y accesible.', 'Creación de maquetas de alta fidelidad y prototipos interactivos.'], deliverables: ['Mockups', 'Prototipos Interactivos', 'Guía de Estilo', 'Diseño UI Final'] },
+                        { id: 'web_development', name: '4. Desarrollo', title: 'Fase de Desarrollo e Implementación', summary: 'La fase de construcción, donde el diseño visual y la arquitectura se transforman en un sitio web funcional, escribiendo el código, configurando bases de datos e integrando funcionalidades.', objectives: ['Desarrollo del Front-end (la parte visible para el usuario).', 'Desarrollo del Back-end (lógica del servidor y base de datos).', 'Implementación de medidas de rendimiento y seguridad desde el código.', 'Integración del contenido final y las funcionalidades.'], deliverables: ['Código Fuente', 'Base de Datos', 'Integraciones', 'Entorno de Desarrollo'] },
+                        { id: 'web_testing', name: '5. Pruebas y QA', title: 'Fase de Pruebas y Control de Calidad (QA)', summary: 'Antes del lanzamiento, el sitio se somete a un riguroso proceso de pruebas para identificar y corregir errores, garantizando la calidad, funcionalidad y una experiencia de usuario óptima.', objectives: ['Realización de pruebas funcionales exhaustivas.', 'Pruebas de usabilidad con usuarios reales.', 'Verificación de compatibilidad en múltiples navegadores y dispositivos.', 'Pruebas de rendimiento, carga y seguridad.'], deliverables: ['Plan de Pruebas', 'Reportes de Errores', 'Informes Usabilidad', 'Aprobación UAT'] },
+                        { id: 'web_deployment', name: '6. Despliegue', title: 'Fase de Despliegue y Lanzamiento', summary: 'Una vez aprobado, el sitio se publica en un entorno de producción, haciéndolo accesible al público. Esta fase requiere una planificación meticulosa para una transición sin problemas.', objectives: ['Preparación y configuración del entorno de producción (servidor).', 'Migración de datos y contenido final.', 'Configuración de herramientas de monitoreo y análisis.', 'Verificación completa post-lanzamiento.'], deliverables: ['Servidor Configurado', 'Dominio y SSL', 'Backup Final', 'Plan de Monitoreo'] },
+                        { id: 'web_maintenance', name: '7. Mantenimiento', title: 'Fase de Post-Lanzamiento y Mantenimiento', summary: 'El lanzamiento no es el final. Esta fase se centra en el monitoreo, la optimización y la evolución del sitio para asegurar su relevancia y eficacia a largo plazo.', objectives: ['Monitoreo continuo del rendimiento y análisis de datos.', 'Actualizaciones de seguridad y software regulares.', 'Optimización continua para conversión (CRO) y SEO.', 'Soporte técnico y planificación de mejoras futuras.'], deliverables: ['Informes Analítica', 'Actualizaciones Seg.', 'Mejoras Contenido', 'Soporte Continuo'] }
+                    ],
+                    chartData: {
+                        labels: ['Estrategia', 'Creatividad', 'Implementación', 'Análisis', 'Gestión'],
+                        datasets: {
+                            web_discovery:   [5, 2, 1, 1, 4], web_planning:    [4, 3, 1, 1, 4], web_design:      [2, 5, 2, 2, 3], web_development: [1, 2, 5, 3, 2], web_testing:     [1, 1, 3, 5, 3], web_deployment:  [1, 1, 4, 3, 4], web_maintenance: [3, 2, 3, 2, 3]
+                        }
+                    }
+                },
+                graphicDesign: {
+                    title: 'Diseño Gráfico',
+                    summary: 'Un proceso completo para la maquetación, fotografía digital y montajes creativos.',
+                    phases: [
+                        { id: 'gd_briefing', name: '1. Briefing y Concepto', title: 'Fase de Briefing y Conceptualización', summary: 'Esta fase inicial es crucial para entender las necesidades del cliente, los objetivos del proyecto y el público objetivo. Se define la dirección creativa y se establecen las bases del diseño.', objectives: ['Análisis profundo de los requisitos del cliente y objetivos de diseño.', 'Investigación de referencias, tendencias y público objetivo.', 'Desarrollo de ideas y conceptos iniciales.', 'Definición del alcance del proyecto y entregables.'], deliverables: ['Briefing Documentado', 'Mood Board', 'Conceptos Iniciales', 'Presupuesto y Cronograma'] },
+                        { id: 'gd_content_prep', name: '2. Preparación de Contenido Visual', title: 'Fase de Preparación de Contenido Visual', summary: 'Aquí se recopila o crea el material visual necesario, ya sea a través de fotografía digital o selección de recursos existentes, asegurando su calidad y relevancia para el proyecto.', objectives: ['Planificación y realización de sesiones fotográficas (si aplica).', 'Selección y curación de imágenes y elementos gráficos.', 'Digitalización y organización de recursos visuales.', 'Asegurar la calidad y resolución adecuada del material.'], deliverables: ['Plan Fotográfico', 'Banco de Imágenes', 'Archivos Raw/Originales', 'Organización de Activos'] },
+                        { id: 'gd_image_treatment', name: '3. Tratamiento Digital de Imagen', title: 'Fase de Tratamiento Digital de Imagen', summary: 'Esta fase se enfoca en la edición y mejora de las fotografías y otros elementos gráficos, ajustando color, luz, composición y realizando retoques necesarios para el montaje final.', objectives: ['Edición básica: recorte, rotación, ajustes de exposición y color.', 'Retoque avanzado: eliminación de imperfecciones, manipulación de elementos.', 'Creación de máscaras y selecciones precisas.', 'Optimización de imágenes para diferentes usos (web, impresión).'], deliverables: ['Imágenes Editadas (PSD/TIFF)', 'Versiones Optimizadas (JPG/PNG)', 'Capas de Ajuste', 'Presets de Edición'] },
+                        { id: 'gd_layout_design', name: '4. Diseño y Maquetación', title: 'Fase de Diseño y Maquetación', summary: 'Aquí se combinan todos los elementos visuales y textuales en una composición coherente y estéticamente agradable, siguiendo principios de diseño y jerarquía visual.', objectives: ['Creación de bocetos y wireframes de maquetación.', 'Diseño de la estructura visual y jerarquía de la información.', 'Selección de tipografías y paleta de colores.', 'Maquetación de páginas/elementos con texto e imágenes.'], deliverables: ['Bocetos de Maquetación', 'Maquetas Digitales (InDesign/Figma)', 'Guía de Estilo Gráfico', 'Pruebas de Impresión/Digitales'] },
+                        { id: 'gd_creative_montage', name: '5. Montajes Creativos', title: 'Fase de Montajes Creativos y Composición', summary: 'En esta etapa se realizan composiciones complejas, combinando múltiples imágenes y elementos gráficos para crear efectos visuales impactantes y narrativas visuales.', objectives: ['Integración de elementos diversos en una composición unificada.', 'Aplicación de efectos especiales y texturas.', 'Creación de escenas o collages digitales.', 'Asegurar la coherencia visual y el impacto estético del montaje.'], deliverables: ['Archivos de Montaje (PSD)', 'Versiones de Alta Resolución', 'Variaciones de Diseño', 'Presentación de Concepto Final'] },
+                        { id: 'gd_review_feedback', name: '6. Revisión y Feedback', title: 'Fase de Revisión y Feedback del Cliente', summary: 'Se presenta el diseño final al cliente para su revisión, se recopila la retroalimentación y se realizan los ajustes necesarios para asegurar la satisfacción y aprobación.', objectives: ['Presentación formal del diseño final al cliente.', 'Recopilación estructurada de feedback y comentarios.', 'Realización de ajustes y revisiones basadas en el feedback.', 'Obtención de la aprobación final del cliente.'], deliverables: ['Presentación Final', 'Documento de Feedback', 'Revisiones Implementadas', 'Aprobación del Cliente'] },
+                        { id: 'gd_export_delivery', name: '7. Exportación y Entrega', title: 'Fase de Exportación y Entrega Final', summary: 'El proyecto se finaliza, exportando los archivos en los formatos adecuados para su uso final (impresión, web, etc.) y se entregan al cliente junto con los archivos fuente.', objectives: ['Optimización y exportación de archivos en formatos finales (JPG, PNG, PDF, TIFF).', 'Preparación de archivos para impresión (CMYK, sangrados, marcas de corte).', 'Organización y empaquetado de archivos fuente (PSD, AI, INDD).', 'Entrega final al cliente y cierre del proyecto.'], deliverables: ['Archivos Finales (Web/Impresión)', 'Archivos Fuente Empaquetados', 'Guía de Uso (si aplica)', 'Factura Final'] }
+                    ],
+                    chartData: {
+                        labels: ['Estrategia', 'Creatividad', 'Implementación', 'Análisis', 'Gestión'],
+                        datasets: {
+                            gd_briefing:         [5, 2, 1, 1, 4], gd_content_prep:     [2, 5, 1, 1, 3], gd_image_treatment:  [1, 5, 2, 3, 2], gd_layout_design:    [2, 4, 5, 2, 3], gd_creative_montage: [1, 5, 3, 2, 3], gd_review_feedback:  [1, 1, 1, 5, 4], gd_export_delivery:  [1, 1, 5, 2, 3]
+                        }
+                    }
+                },
+                digitalMarketing: {
+                    title: 'Marketing Digital',
+                    summary: 'Estrategias y ejecución para campañas de emailing, publicidad digital y offline.',
+                    phases: [
+                        { id: 'dm_strategy', name: '1. Estrategia y Planificación', title: 'Fase de Estrategia y Planificación de Marketing Digital', summary: 'Definición de objetivos, público objetivo, análisis de la competencia y selección de canales.', objectives: ['Definir KPIs y objetivos de campaña.', 'Investigar público objetivo y competencia.', 'Seleccionar canales y tácticas (email, redes, offline).', 'Crear plan de contenido y calendario.'], deliverables: ['Plan de Marketing Digital', 'Análisis de Mercado', 'Buyer Personas', 'Calendario de Contenido'] },
+                        { id: 'dm_creative_dev', name: '2. Desarrollo Creativo', title: 'Fase de Desarrollo de Creatividades', summary: 'Creación de los activos visuales y textuales para las campañas, adaptados a cada canal.', objectives: ['Diseñar creatividades para redes sociales.', 'Crear plantillas y contenido de emailing.', 'Desarrollar materiales para publicidad offline.', 'Asegurar coherencia de marca.'], deliverables: ['Creatividades RRSS', 'Plantillas Emailing', 'Diseños Offline', 'Guía de Estilo de Marca'] },
+                        { id: 'dm_content_adapt', name: '3. Adaptación y Optimización', title: 'Fase de Adaptación y Optimización de Contenido', summary: 'Ajuste de las creatividades y mensajes para maximizar el impacto en diferentes plataformas y audiencias.', objectives: ['Optimizar imágenes y textos para cada plataforma.', 'Realizar pruebas A/B de creatividades.', 'Adaptar contenido para diferentes segmentos de audiencia.', 'Asegurar rendimiento en dispositivos móviles.'], deliverables: ['Contenido Adaptado', 'Informes Pruebas A/B', 'Segmentación de Audiencia', 'Optimización Móvil'] },
+                        { id: 'dm_campaign_exec', name: '4. Ejecución de Campañas', title: 'Fase de Ejecución y Lanzamiento de Campañas', summary: 'Implementación de las campañas en los canales seleccionados, configurando plataformas y monitoreando el inicio.', objectives: ['Configurar y lanzar campañas de emailing.', 'Activar campañas de publicidad en redes sociales.', 'Distribuir materiales offline.', 'Monitorear rendimiento inicial.'], deliverables: ['Campañas Activas', 'Informes de Lanzamiento', 'Configuración de Plataformas', 'Monitoreo en Tiempo Real'] },
+                        { id: 'dm_analytics_opt', name: '5. Análisis y Optimización Continua', title: 'Fase de Análisis y Optimización Continua', summary: 'Recopilación y análisis de datos de rendimiento para ajustar y mejorar las campañas en tiempo real.', objectives: ['Monitorear KPIs y métricas clave.', 'Realizar análisis de datos de campaña.', 'Identificar áreas de mejora y oportunidades.', 'Implementar ajustes y optimizaciones.'], deliverables: ['Informes de Rendimiento', 'Análisis de Datos', 'Recomendaciones de Optimización', 'Ajustes de Campaña'] },
+                        { id: 'dm_reporting', name: '6. Reporting y Cierre', title: 'Fase de Reporting y Cierre de Campaña', summary: 'Presentación de los resultados finales al cliente, evaluación del éxito y documentación de aprendizajes.', objectives: ['Generar informes de resultados finales.', 'Presentar análisis de ROI y KPIs.', 'Recopilar aprendizajes para futuras campañas.', 'Documentar el proceso y los resultados.'], deliverables: ['Informe Final de Campaña', 'Presentación de Resultados', 'Documento de Lecciones Aprendidas', 'Factura y Cierre'] },
+                        { id: 'dm_long_term', name: '7. Estrategia a Largo Plazo', title: 'Fase de Estrategia a Largo Plazo y Evolución', summary: 'Desarrollo de planes para el crecimiento continuo y la adaptación a las tendencias del mercado digital.', objectives: ['Identificar nuevas tendencias y tecnologías.', 'Planificar futuras campañas y estrategias.', 'Mantener la marca relevante en el entorno digital.', 'Evaluar nuevas oportunidades de mercado.'], deliverables: ['Plan Estratégico Futuro', 'Investigación de Tendencias', 'Propuestas de Innovación', 'Roadmap de Marketing'] }
+                    ],
+                    chartData: {
+                        labels: ['Estrategia', 'Creatividad', 'Implementación', 'Análisis', 'Gestión'],
+                        datasets: {
+                            dm_strategy:        [5, 2, 1, 1, 4], dm_creative_dev:    [2, 5, 2, 1, 3], dm_content_adapt:   [1, 3, 2, 5, 2], dm_campaign_exec:   [1, 2, 5, 3, 3], dm_analytics_opt:   [1, 1, 2, 5, 3], dm_reporting:       [2, 1, 1, 3, 5], dm_long_term:       [5, 2, 1, 3, 4]
+                        }
+                    }
+                },
+                offlineDesign: {
+                    title: 'Diseño Offline',
+                    summary: 'Proceso integral para la creación de materiales gráficos destinados a medios impresos y físicos.',
+                    phases: [
+                        { id: 'od_briefing', name: '1. Briefing y Concepto', title: 'Fase de Briefing y Conceptualización', summary: 'Análisis de las necesidades, objetivos y público para definir el concepto creativo, la dirección de arte y los requisitos del proyecto impreso.', objectives: ['Comprender la marca y el mensaje a comunicar.', 'Definir el formato y las especificaciones de impresión.', 'Crear un mood board y conceptos iniciales.', 'Establecer el presupuesto y el cronograma.'], deliverables: ['Briefing Documentado', 'Mood Board', 'Bocetos Iniciales'] },
+                        { id: 'od_asset_prep', name: '2. Preparación de Activos', title: 'Fase de Preparación de Activos', summary: 'Recopilación y organización de todos los elementos (textos, logotipos, imágenes) necesarios para la maquetación.', objectives: ['Recopilar textos finales y aprobados.', 'Obtener logotipos y elementos de marca en alta calidad.', 'Seleccionar y licenciar imágenes de alta resolución.', 'Organizar los activos en una estructura de carpetas lógica.'], deliverables: ['Textos Finales', 'Activos de Marca', 'Imágenes de Alta Resolución', 'Estructura de Carpetas'] },
+                        { id: 'od_image_proc', name: '3. Tratamiento de Imágenes', title: 'Fase de Tratamiento Digital de Imágenes', summary: 'Procesamiento de fotografías para su uso en medios impresos, incluyendo retoque, corrección de color y ajuste para el perfil de color CMYK.', objectives: ['Retocar y corregir imperfecciones en fotografías.', 'Ajustar el balance de color y el contraste.', 'Convertir imágenes al perfil de color CMYK.', 'Optimizar la resolución para la calidad de impresión.'], deliverables: ['Imágenes Retocadas y Corregidas', 'Archivos CMYK'] },
+                        { id: 'od_layout', name: '4. Diseño y Maquetación', title: 'Fase de Diseño y Maquetación', summary: 'Disposición de todos los elementos en el formato de diseño final, prestando atención a la jerarquía, la legibilidad y la estética.', objectives: ['Maquetar el contenido según el formato.', 'Elegir y aplicar tipografías adecuadas para impresión.', 'Crear la composición visual y la narrativa gráfica.', 'Revisar la coherencia de la maquetación y el diseño.'], deliverables: ['Maqueta Final (InDesign/Illustrator)', 'Guía de Estilo Gráfico para Impresión'] },
+                        { id: 'od_proof_review', name: '5. Pruebas y Revisión', title: 'Fase de Pruebas y Revisión del Cliente', summary: 'Generación de pruebas de color (proofs) para que el cliente revise y apruebe el diseño antes de enviarlo a imprenta.', objectives: ['Generar pruebas digitales (PDFs de baja resolución).', 'Revisar textos y elementos finales con el cliente.', 'Obtener la aprobación final del diseño.', 'Corregir cualquier error o ajuste de último minuto.'], deliverables: ['Pruebas de Impresión (Proofs)', 'Documento de Aprobación'] },
+                        { id: 'od_prepress', name: '6. Pre-prensa', title: 'Fase de Pre-prensa y Preparación Final', summary: 'Preparación técnica del archivo final para la producción en imprenta, asegurando que todos los requisitos técnicos se cumplan.', objectives: ['Comprobar sangrados y líneas de corte.', 'Verificar la correcta incrustación de fuentes y enlaces.', 'Revisar el modo de color y la sobreimpresión.', 'Empaquetar el archivo para el envío a la imprenta.'], deliverables: ['Archivo Final para Imprenta (PDF/X)', 'Paquete de Archivos Fuente'] },
+                        { id: 'od_delivery', name: '7. Impresión y Entrega', title: 'Fase de Impresión y Entrega', summary: 'Supervisión del proceso de producción en la imprenta y entrega del producto final al cliente.', objectives: ['Coordinar con la imprenta y supervisar la impresión.', 'Revisar la calidad del producto impreso.', 'Entregar el material final al cliente.', 'Documentar el proyecto para futuras referencias.'], deliverables: ['Producto Impreso Final', 'Documentación del Proyecto'] }
+                    ],
+                    chartData: {
+                        labels: ['Estrategia', 'Creatividad', 'Implementación', 'Análisis', 'Gestión'],
+                        datasets: {
+                            od_briefing:      [5, 3, 1, 1, 4], od_asset_prep:    [2, 2, 2, 1, 3], od_image_proc:    [1, 5, 2, 3, 2], od_layout:        [2, 4, 5, 2, 3], od_proof_review:  [1, 2, 1, 5, 4], od_prepress:      [1, 1, 5, 3, 3], od_delivery:      [1, 1, 3, 2, 5]
+                        }
+                    }
+                }
+            },
+            skills: {
+                disenoEditorial: {
+                    title: 'Diseño Editorial',
+                    description: 'La habilidad de maquetar y diseñar publicaciones impresas y digitales, como periódicos, revistas y libros, asegurando una composición visual armoniosa y una legibilidad óptima.',
+                    points: ['Maquetación avanzada con software de la industria.', 'Gestión de tipografía y jerarquía visual.', 'Preparación de archivos para imprenta (pre-prensa).', 'Creación de portadas y diseño de interiores.']
+                },
+                disenoWeb: {
+                    title: 'Diseño Web',
+                    description: 'Desarrollo de sitios web atractivos y funcionales que combinan estética, experiencia de usuario y tecnología, desde el concepto hasta la implementación.',
+                    points: ['Diseño y desarrollo Front-end.', 'Creación de maquetas y prototipos interactivos.', 'Integración con CMS (WordPress, etc.).', 'Optimización para velocidad y rendimiento.']
+                },
+                uxUi: {
+                    title: 'UX / UI',
+                    description: 'Creación de interfaces de usuario (UI) intuitivas y experiencias de usuario (UX) fluidas, centradas en las necesidades del usuario final y en los objetivos del negocio.',
+                    points: ['Investigación de usuario y creación de personas.', 'Diseño de flujos de usuario y prototipado.', 'Creación de wireframes y mockups.', 'Pruebas de usabilidad y mejora continua.']
+                },
+                disenoPublicitario: {
+                    title: 'Diseño Publicitario',
+                    description: 'Concepción y creación de materiales gráficos para campañas publicitarias, tanto para medios digitales como tradicionales, con un enfoque en la persuasión y la efectividad.',
+                    points: ['Diseño de banners y anuncios digitales.', 'Creación de vallas publicitarias y folletos.', 'Desarrollo de conceptos creativos.', 'Adaptación a diferentes formatos y plataformas.']
+                },
+                disenoOffline: {
+                    title: 'Diseño Offline',
+                    description: 'Creación de piezas gráficas para el mundo físico, incluyendo logotipos, branding, cartelería y papelería corporativa, garantizando la consistencia visual de la marca.',
+                    points: ['Diseño de identidad corporativa y branding.', 'Creación de materiales de marketing impresos.', 'Desarrollo de packaging y etiquetas.', 'Supervisión de la producción de materiales físicos.']
+                },
+                seoSem: {
+                    title: 'SEO / SEM',
+                    description: 'Estrategias para mejorar la visibilidad de sitios web en los motores de búsqueda, tanto de forma orgánica (SEO) como a través de publicidad de pago (SEM), maximizando el tráfico y la conversión.',
+                    points: ['Auditoría SEO on-page y off-page.', 'Investigación de palabras clave y análisis de competencia.', 'Creación y gestión de campañas de Google Ads.', 'Análisis de métricas y optimización de campañas.']
+                },
+                fotografiaProfesional: {
+                    title: 'Fotografía Profesional',
+                    description: 'Captura de imágenes de alta calidad para su uso en proyectos de marketing, diseño y editoriales, con un dominio de la composición, la iluminación y la técnica fotográfica.',
+                    points: ['Fotografía de producto y retratos corporativos.', 'Composición y dirección artística.', 'Manejo de equipos de iluminación y estudio.', 'Conceptualización de sesiones fotográficas.']
+                },
+                retoquefotograficoprofesional: {
+                    title: 'Retoque Fotografico Profesional',
+                    description: 'La habilidad para editar, corregir y mejorar imágenes digitalmente, con el objetivo de optimizar su calidad, estética y fidelidad, ya sea para su uso en publicidad, editorial o cualquier otro medio profesional.', 
+                    points: ['Corrección de color y tono: Ajuste de la exposición, contraste y balance de color para unificar el aspecto visual y lograr una ambientación deseada.', 'Limpieza y optimización: Eliminación de imperfecciones (manchas, arrugas, reflejos) y objetos no deseados del encuadre.', 'Flujo de trabajo no destructivo (layers, máscaras).', 'Ajuste de la piel: Técnicas avanzadas para suavizar la piel sin perder textura y corregir imperfecciones de manera realista.', 'Composición y fotomontaje: Manipulación de imágenes para combinar elementos de diferentes fotografías y crear una escena coherente.', 'Preparación para formatos específicos: Adaptación y optimización de las imágenes para su uso en diferentes soportes, como impresión (CMYK) o web (RGB).']
+                },
+                marketingredessociales: {
+                    title: 'Marketing Digital y Redes Sociales', 
+                    description: 'La capacidad de planificar y ejecutar estrategias de marketing en canales digitales para construir una marca, conectar con el público objetivo, generar visibilidad y alcanzar los objetivos de negocio.', 
+                    points: ['Creación y gestión de contenido: Diseño, redacción y programación de publicaciones para blogs, redes sociales (Instagram, TikTok, Facebook, LinkedIn, etc.) y otros medios digitales.', 'Gestión de la comunidad: Interacción, diálogo y atención a los usuarios para fomentar el engagement, la fidelidad y una reputación online positiva.', 'Analítica y monitorización: Medición y análisis de métricas (alcance, interacciones, conversiones) para evaluar el rendimiento de las campañas y optimizar la estrategia.', 'Publicidad digital: Creación y gestión de campañas de pago (SEM, Social Ads) para aumentar la visibilidad y atraer tráfico cualificado.', 'Gestión de la reputación online: Detección y manejo de crisis de reputación, comentarios negativos y feedback de la comunidad para proteger la imagen de la marca.']
+                },
+                 EmailMarketing: {
+                    title: 'Email Marketings', 
+                    description: 'La habilidad de diseñar, planificar y ejecutar estrategias de comunicación a través de correos electrónicos con el objetivo de fidelizar clientes, promocionar productos o servicios, y generar conversiones.', 
+                    points: ['Creación y diseño de campañas: Elaboración de boletines (newsletters), correos promocionales y emails transaccionales atractivos y optimizados para diversos dispositivos.', 'Gestión de bases de datos: Segmentación de listas de contactos para enviar mensajes personalizados y relevantes a cada grupo de usuarios.', 'Automatización de flujos de trabajo: Configuración de secuencias de correos automáticos (bienvenida, recuperación de carritos, etc.) para nutrir a los leads.', 'Análisis y optimización: Medición de métricas clave (tasas de apertura, clics, rebote) para evaluar el rendimiento de las campañas y realizar mejoras continuas (A/B testing).', 'Cumplimiento de normativas: Asegurar que las comunicaciones cumplen con las regulaciones de privacidad de datos (como el RGPD) y las mejores prácticas de entregabilidad.']
+                },
+                 marketingredessociales: {
+                    title: 'Marketing Digital y Redes Sociales', 
+                    description: 'La capacidad de planificar y ejecutar estrategias de marketing en canales digitales para construir una marca, conectar con el público objetivo, generar visibilidad y alcanzar los objetivos de negocio.', 
+                    points: ['Creación y gestión de contenido: Diseño, redacción y programación de publicaciones para blogs, redes sociales (Instagram, TikTok, Facebook, LinkedIn, etc.) y otros medios digitales.', 'Gestión de la comunidad: Interacción, diálogo y atención a los usuarios para fomentar el engagement, la fidelidad y una reputación online positiva.', 'Analítica y monitorización: Medición y análisis de métricas (alcance, interacciones, conversiones) para evaluar el rendimiento de las campañas y optimizar la estrategia.', 'Publicidad digital: Creación y gestión de campañas de pago (SEM, Social Ads) para aumentar la visibilidad y atraer tráfico cualificado.', 'Gestión de la reputación online: Detección y manejo de crisis de reputación, comentarios negativos y feedback de la comunidad para proteger la imagen de la marca.']
+                },
+            },
+                 transversals: [
+                { id: 'client_comm', title: 'Comunicación con Cliente', icon: '🤝', content: '<p>Una comunicación efectiva y constante con el cliente es fundamental. Implica escuchar activamente, gestionar expectativas y proporcionar actualizaciones claras y regulares.</p><ul><li><strong>Briefings Detallados:</strong> Asegurar una comprensión profunda de las necesidades desde el inicio.</li><li><strong>Feedback Estructurado:</strong> Establecer canales claros para revisiones y comentarios.</li><li><strong>Gestión de Expectativas:</strong> Ser transparente sobre plazos, costos y posibles desafíos.</li></ul>' },
+                { id: 'project_mgmt', title: 'Gestión de Proyectos', icon: '📊', content: '<p>Una gestión de proyectos eficiente es clave para el éxito, abarcando la planificación, organización, seguimiento y control de los recursos y el tiempo.</p><ul><li><strong>Metodologías Ágiles:</strong> Implementar enfoques iterativos para mayor flexibilidad.</li><li><strong>Herramientas de Colaboración:</strong> Utilizar plataformas como Jira, Asana o Trello para la organización de tareas.</li><li><strong>Gestión Presupuestaria:</strong> Monitorear los gastos y mantener la transparencia financiera.</li></ul>' },
+                { id: 'quality_perf', title: 'Calidad y Rendimiento', icon: '⚡️', content: '<p>Garantizar la alta calidad del producto final y su óptimo rendimiento es crucial para la experiencia del usuario y los objetivos de negocio.</p><ul><li><strong>Optimización SEO:</strong> Integrar las mejores prácticas de SEO desde el inicio.</li><li><strong>Velocidad de Carga:</strong> Optimizar activos y código para un rendimiento rápido.</li><li><strong>Seguridad:</strong> Implementar medidas proactivas y cumplimiento normativo.</li></ul>' },
+                { id: 'asset_mgmt', title: 'Gestión de Activos Creativos', icon: '🗂️', content: '<p>Una organización meticulosa y el respeto por los derechos de autor de todos los elementos visuales y textuales son vitales.</p><ul><li><strong>Derechos de Autor y Licencias:</strong> Asegurar el uso legal de imágenes, fuentes y otros recursos.</li><li><strong>Organización de Archivos:</strong> Mantener una estructura de carpetas lógica y control de versiones.</li><li><strong>Gestión de Color y Tipografía:</strong> Asegurar la consistencia visual y la legibilidad en todos los medios.</li></ul>' },
+                { id: 'data_analytics', title: 'Análisis y Optimización', icon: '📈', content: '<p>La recopilación y el análisis de datos son fundamentales para la toma de decisiones informada y la mejora continua de estrategias y productos.</p><ul><li><strong>KPIs y Métricas:</strong> Definir y monitorear indicadores clave de rendimiento.</li><li><strong>Pruebas A/B:</strong> Realizar experimentos para optimizar el contenido y las creatividades.</li><li><strong>Informes de Resultados:</strong> Presentar análisis claros y recomendaciones de mejora.</li></ul>' },
+                { id: 'adaptation_trends', title: 'Adaptación y Tendencias', icon: '🚀', content: '<p>El panorama digital y creativo evoluciona constantemente, por lo que la capacidad de adaptarse y estar al día con las últimas tendencias es esencial.</p><ul><li><strong>Investigación de Tendencias:</strong> Mantenerse informado sobre nuevas tecnologías y enfoques.</li><li><strong>Flexibilidad:</strong> Ajustar estrategias y diseños según las necesidades cambiantes del mercado.</li><li><strong>Innovación:</strong> Explorar nuevas herramientas y técnicas para mantener la relevancia.</li></ul>' }
+                ]
+            };
+
+            const portfolioModal = document.getElementById('portfolio-modal');
+            const textModal = document.getElementById('text-modal');
+            
+            const closeModal = () => {
+                const visibleModal = document.querySelector('.modal--is-visible');
+                if (visibleModal) {
+                    visibleModal.classList.remove('modal--is-visible');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            document.querySelectorAll('.js-close-modal').forEach(btn => btn.addEventListener('click', closeModal));
+            [portfolioModal, textModal].forEach(modal => {
+                if(modal) modal.addEventListener('click', e => e.target === modal && closeModal());
+            });
+            document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
+
+            const textModalTitle = document.getElementById('text-modal-title');
+            const textModalBody = document.getElementById('text-modal-body');
+            const portfolioModalTitle = document.getElementById('portfolio-modal-title');
+            const carouselContainer = document.getElementById('modal-carousel');
+            let currentPortfolioSlideIndex = 0;
+            let portfolioSlides = [];
+
+            const showPortfolioSlide = (index) => portfolioSlides.forEach((slide, i) => slide.classList.toggle('carousel__item--is-active', i === index));
+            const changePortfolioSlide = (n) => {
+                if (portfolioSlides.length > 1) {
+                    currentPortfolioSlideIndex = (currentPortfolioSlideIndex + n + portfolioSlides.length) % portfolioSlides.length;
+                    showPortfolioSlide(currentPortfolioSlideIndex);
+                }
+            };
+            if(carouselContainer) {
+                carouselContainer.querySelector('.carousel__button--prev').addEventListener('click', () => changePortfolioSlide(-1));
+                carouselContainer.querySelector('.carousel__button--next').addEventListener('click', () => changePortfolioSlide(1));
+            }
+            
+            document.addEventListener('click', (event) => {
+                const textTrigger = event.target.closest('.js-text-modal-trigger');
+                const portfolioTrigger = event.target.closest('.js-portfolio-modal-trigger');
+
+                if (textTrigger) {
+                    const type = textTrigger.dataset.type;
+                    const id = textTrigger.dataset.id;
+                    const data = type === 'skill' ? appData.skills[id] : appData.transversals.find(t => t.id === id);
+
+                    if (data) {
+                        textModalTitle.textContent = data.title;
+                        if (type === 'skill') {
+                            textModalBody.innerHTML = `<p class="modal__body-description">${data.description}</p><ul class="modal__body-points">${data.points.map(p => `<li><span>▪</span><span>${p}</span></li>`).join('')}</ul>`;
+                        } else {
+                            textModalBody.innerHTML = data.content;
+                        }
+                        textModal.classList.add('modal--is-visible');
+                        document.body.style.overflow = 'hidden';
+                    }
+                }
+
+                if (portfolioTrigger) {
+                    const title = portfolioTrigger.dataset.modalTitle || 'Detalles del Proyecto';
+                    const images = JSON.parse(portfolioTrigger.dataset.modalImages || '[]');
+                    portfolioModalTitle.textContent = title;
+                    
+                    const existingContent = carouselContainer.querySelector('.carousel__content');
+                    if (existingContent) existingContent.remove();
+
+                    const carouselContent = document.createElement('div');
+                    carouselContent.className = 'carousel__content';
+
+                    if (images.length > 0) {
+                        images.forEach(src => {
+                            const slide = document.createElement('div');
+                            slide.className = 'carousel__item';
+                            const img = document.createElement('img');
+                            img.src = src;
+                            img.alt = title;
+                            img.className = 'carousel__image';
+                            slide.appendChild(img);
+                            carouselContent.appendChild(slide);
+                        });
+                        carouselContainer.querySelector('.carousel__button--prev').style.display = images.length > 1 ? 'block' : 'none';
+                        carouselContainer.querySelector('.carousel__button--next').style.display = images.length > 1 ? 'block' : 'none';
+                    } else {
+                        carouselContent.innerHTML = `<p style="text-align:center; padding: 2rem; color: var(--text-color-light);">No hay imágenes de muestra.</p>`;
+                        carouselContainer.querySelector('.carousel__button--prev').style.display = 'none';
+                        carouselContainer.querySelector('.carousel__button--next').style.display = 'none';
+                    }
+
+                    carouselContainer.insertBefore(carouselContent, carouselContainer.querySelector('.carousel__button--prev'));
+                    portfolioSlides = Array.from(carouselContent.querySelectorAll('.carousel__item'));
+                    
+                    if (portfolioSlides.length > 0) {
+                        currentPortfolioSlideIndex = 0;
+                        showPortfolioSlide(currentPortfolioSlideIndex);
+                    }
+                    
+                    portfolioModal.classList.add('modal--is-visible');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+            
+            const transversalGrid = document.getElementById('transversal-grid');
+            if(transversalGrid){
+                appData.transversals.forEach(item => {
+                    const gridItem = document.createElement('div');
+                    gridItem.className = 'transversal-grid__item js-text-modal-trigger';
+                    gridItem.dataset.type = 'transversal';
+                    gridItem.dataset.id = item.id;
+                    gridItem.innerHTML = `<div class="transversal-grid__item-icon">${item.icon}</div><h4 class="transversal-grid__item-title">${item.title}</h4>`;
+                    transversalGrid.appendChild(gridItem);
+                });
+            }
+
+            const mainNavButtons = document.querySelectorAll('.processes-section__nav-button');
+            const sectionTitleEl = document.getElementById('section-title-display');
+            const sectionSummaryEl = document.getElementById('section-summary-display');
+            const phaseNavigatorContainer = document.querySelector('.processes-section__phase-nav');
+            const phaseTitleEl = document.getElementById('phase-title');
+            const phaseSummaryEl = document.getElementById('phase-summary');
+            const phaseObjectivesEl = document.getElementById('phase-objectives');
+            const phaseDeliverablesEl = document.getElementById('phase-deliverables');
+            const phaseTextContentEl = document.getElementById('phase-text-content');
+            let currentSectionId = 'webDevelopment';
+            let effortChart;
+
+            const updateChart = (phaseId) => {
+                if (!effortChart) return;
+                const chartData = appData.sections[currentSectionId].chartData;
+                const newData = chartData.datasets[phaseId];
+                if(newData){
+                    effortChart.data.datasets[0].data = newData;
+                    effortChart.update();
+                }
+            };
+            
+            const renderPhase = (phaseId) => {
+                const sectionData = appData.sections[currentSectionId];
+                const phaseData = sectionData.phases.find(p => p.id === phaseId);
+                if (!phaseData) return;
+
+                phaseTextContentEl.classList.add('processes-section__details-content--is-loading');
+                setTimeout(() => {
+                    phaseTitleEl.textContent = phaseData.title || '';
+                    phaseSummaryEl.textContent = phaseData.summary || '';
+                    phaseObjectivesEl.innerHTML = (phaseData.objectives || []).map(obj => `<li><span>▪</span><span>${obj}</span></li>`).join('');
+                    phaseDeliverablesEl.innerHTML = (phaseData.deliverables || []).map(del => `<span style="background-color: #e0e7ff; color: #4338ca; font-size: 0.875rem; font-weight: 500; padding: 0.25rem 0.75rem; border-radius: 9999px;">${del}</span>`).join('');
+                    document.querySelectorAll('.processes-section__phase-button').forEach(btn => {
+                        btn.classList.toggle('processes-section__phase-button--is-active', btn.dataset.phaseId === phaseId);
+                    });
+                    updateChart(phaseId);
+                    phaseTextContentEl.classList.remove('processes-section__details-content--is-loading');
+                }, 250);
+            };
+
+            const renderSection = (sectionId) => {
+                currentSectionId = sectionId;
+                const sectionData = appData.sections[sectionId];
+                mainNavButtons.forEach(btn => {
+                    btn.classList.toggle('processes-section__nav-button--is-active', btn.dataset.section === sectionId);
+                });
+                sectionTitleEl.textContent = sectionData.title;
+                sectionSummaryEl.textContent = sectionData.summary;
+                phaseNavigatorContainer.innerHTML = '';
+                sectionData.phases.forEach(phase => {
+                    const button = document.createElement('button');
+                    button.className = 'processes-section__phase-button';
+                    button.textContent = phase.name;
+                    button.dataset.phaseId = phase.id;
+                    button.addEventListener('click', () => renderPhase(phase.id));
+                    phaseNavigatorContainer.appendChild(button);
+                });
+                if (sectionData.phases.length > 0) {
+                    renderPhase(sectionData.phases[0].id);
+                }
+            };
+
+            const setupChart = () => {
+                if(typeof Chart === 'undefined') return;
+                const ctx = document.getElementById('effortChart').getContext('2d');
+                const initialData = appData.sections.webDevelopment.chartData;
+                effortChart = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: initialData.labels,
+                        datasets: [{
+                            label: 'Distribución de Esfuerzo',
+                            data: initialData.datasets.web_discovery,
+                            backgroundColor: 'rgba(21, 94, 174, 0.2)',
+                            borderColor: '#155eae',
+                            pointBackgroundColor: '#155eae',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: '#155eae'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { r: { angleLines: { color: 'rgba(0, 0, 0, 0.1)' }, grid: { color: 'rgba(0, 0, 0, 0.1)' }, pointLabels: { font: { size: 12 }, color: '#7E8794' }, ticks: { backdropColor: 'transparent', stepSize: 1, max: 5, min: 0 } } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            };
+            
+            mainNavButtons.forEach(button => {
+                button.addEventListener('click', () => renderSection(button.dataset.section));
+            });
+            setupChart();
+            renderSection('webDevelopment');
+
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+
+            const applyTheme = (isDark) => {
+                document.body.classList.toggle('dark-mode', isDark);
+                moonIcon.classList.toggle('theme-toggle__icon--hidden', !isDark);
+                sunIcon.classList.toggle('theme-toggle__icon--hidden', isDark);
+            };
+            const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            applyTheme(savedTheme === 'dark' || (savedTheme === null && isSystemDark));
+
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkMode = !document.body.classList.contains('dark-mode');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                applyTheme(isDarkMode);
+            });
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalBackdrop = document.getElementById('work-gallery-modal-backdrop');
+        const closeModalBtn = document.querySelector('.work-gallery-close-btn');
+        const companyItems = document.querySelectorAll('.work-gallery-logo-item');
+        const modalContent = document.getElementById('work-gallery-modal-content');
+        const modalTitle = document.getElementById('work-gallery-modal-title');
+
+        // Contenido de ejemplo para cada sección (simulando una base de datos)
+        const portfolioData = {
+            empresa1: {
+                title: "Trabajos en Periódico 20minutos",
+                media: [
+                    { type: "image", src: "img/portfolio/20m/1.jpg", caption: "Diseño y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/20m/1-1.jpg", caption: "Diseño y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/20m/2.jpg", caption: "Diseño y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/20m/2-2.jpg", caption: "Diseño y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/20m/3.jpg", caption: "Diseño y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/20m/4.jpg", caption: "Diseño y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/20m/5.jpg", caption: "Diseño y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/20m/6.jpg", caption: "Diseño y tratamiento de imagen" },
+                ]
+            },
+            empresa2: {
+                title: "Trabajos en Periódico deportivo Marca",
+                media: [
+                    { type: "image", src: "img/portfolio/marca/1.png", caption: "Diseño, y tratamiento fotográfico" },
+                    { type: "image", src: "img/portfolio/marca/3.png", caption: "Diseño, y tratamiento fotográfico" },
+                    { type: "image", src: "img/portfolio/marca/4.png", caption: "Diseño, y tratamiento fotográfico" },
+                    { type: "image", src: "img/portfolio/marca/5.png", caption: "Diseño, y tratamiento fotográfico" },
+                   
+                ]
+            },
+            empresa3: {
+                title: "Trabajos en Perioódico Expansión",
+                media: [
+                    { type: "image", src: "img/portfolio/Expansión/1.png", caption: "Diseño, y tratamiento fotográfico" },
+                ]
+            },
+            empresa4: {
+                title: "Trabajos en Revista Diario Médico",
+                media: [
+                    { type: "image", src: "img/portfolio/diario_medico/1.png", caption: "Diseño, y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/diario_medico/2.png", caption: "Diseño, y tratamiento de imagen" },
+                ]
+            },
+            empresa5: {
+                title: "Trabajo en Revista Diplomaca",
+                media: [
+                    { type: "image", src: "img/portfolio/diplomacia/1.png", caption: "Diseño, y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/diplomacia/2.png", caption: "Diseño, y tratamiento de imagen" },
+                ]
+            },
+            empresa6: {
+                title: "Trabajos en Revista Trámite",
+                media: [
+                    { type: "image", src: "img/portfolio/tramite/1.png", caption: "Diseño, y tratamiento de imagen" },
+                    { type: "image", src: "img/portfolio/tramite/2.png", caption: "Diseño, y tratamiento de imagen" },
+                ]
+            },
+            empresa7: {
+               title: "Publicidad Atrápalo, Redes y personalizadción según empresa",
+               media: [
+                    { type: "image", src: "img/portfolio/publicidad/Atrapalo/1.gif", caption: "banner publicidad" },
+                    { type: "image", src: "img/portfolio/publicidad/Atrapalo/2.gif", caption: "banner publicidad" },
+                    { type: "image", src: "img/portfolio/publicidad/Atrapalo/3.gif", caption: "banner publicidad" },
+                    { type: "image", src: "img/portfolio/publicidad/Atrapalo/4.gif", caption: "banner publicidad" },
+                    { type: "image", src: "img/portfolio/publicidad/Atrapalo/5.jpg", caption: "banner publicidad" },
+                    { type: "image", src: "img/portfolio/publicidad/Atrapalo/6.gif", caption: "banner publicidad" },
+                    { type: "image", src: "img/portfolio/publicidad/Atrapalo/7.gif", caption: "banner publicidad" },
+                ]
+            },
+             empresa8:  {
+                title: "Publicidad masquevapor.com ",
+                media: [
+                    { type: "image", src: "img/portfolio/publicidad/masquevapor/2-1.jpeg", caption: "Diseño publi Redes" },
+                    { type: "image", src: "img/portfolio/publicidad/masquevapor/1.jpeg", caption: "Diseño Banner para Web" },
+                ]
+            },
+            empresa9: {
+                title: "Cweb, logotipo, publicidad ymarketing",
+                media: [
+                    { type: "image", src: "https://www.w3schools.com/w3images/forestbridge.jpg", caption: "Mockup de Publicidad" }
+                ]
+            },
+            empresa10: {
+                 title: "Proyectos en TuCaraMeSauna.com",
+                media: [
+                    { type: "video", src: "https://www.w3schools.com/html/mov_bbb.mp4", caption: "Redes Sociales, " }
+                ]
+            },
+            empresa11: {
+                title: "Proyectos en Inmoamp.com",
+                media: [
+                    { type: "image", src: "img/logotipos_empresas", caption: "Logotipo" }
+                ]
+               
+            }
+        };
+
+        // Función para renderizar el contenido en el modal
+        function renderModalContent(companyId) {
+            const data = portfolioData[companyId];
+            if (!data) return;
+
+            modalTitle.textContent = data.title;
+            modalContent.innerHTML = ''; // Limpia el contenido anterior
+
+            data.media.forEach(item => {
+                const mediaWrapper = document.createElement('div');
+                mediaWrapper.classList.add('work-gallery-media-item');
+
+                if (item.type === 'image') {
+                    const img = document.createElement('img');
+                    img.src = item.src;
+                    img.alt = item.caption;
+                    mediaWrapper.appendChild(img);
+                } else if (item.type === 'video') {
+                    const video = document.createElement('video');
+                    video.src = item.src;
+                    video.controls = true;
+                    video.style.width = '100%';
+                    video.style.height = 'auto';
+                    mediaWrapper.appendChild(video);
+                }
+
+                const caption = document.createElement('p');
+                caption.classList.add('work-gallery-media-caption');
+                caption.textContent = item.caption;
+                mediaWrapper.appendChild(caption);
+
+                modalContent.appendChild(mediaWrapper);
+            });
+        }
+
+        // Código para mostrar el modal
+        companyItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const companyId = this.getAttribute('data-company-id');
+                renderModalContent(companyId);
+                modalBackdrop.classList.add('work-gallery-is-visible');
+            });
+        });
+
+        // Código para cerrar el modal
+        closeModalBtn.addEventListener('click', function() {
+            modalBackdrop.classList.remove('work-gallery-is-visible');
+        });
+
+        modalBackdrop.addEventListener('click', function(event) {
+            if (event.target === modalBackdrop) {
+                modalBackdrop.classList.remove('work-gallery-is-visible');
+            }
+        });
+
+        // Desactivar el scroll del cuerpo cuando el modal está abierto
+        const body = document.body;
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    if (modalBackdrop.classList.contains('work-gallery-is-visible')) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                }
+            });
+        });
+
+        observer.observe(modalBackdrop, {
+            attributes: true
+        });
+    });
+</script>
+</body>
+</html>
