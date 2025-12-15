@@ -714,10 +714,7 @@
             </div>
             <h1 class="site-header__title">Óscar Alaber Villa</h1>
             <p class="site-header__subtitle">Diseñador Gráfico · Desarrollador Web Front-end <br> Marketing digital · Fotografia y retoque profesional</p>
-            <div class="site-header__actions">
-                <a href="https://es.linkedin.com/in/oscaralaber" target="_blank" class="button button--cta" style="border-radius: 8px;">LinkedIn</a>
-                <a href="#contact" class="button button--cta">Contacto</a>
-            </div>
+           
           
             <div class="site-header__status">
                 <a href="https://upwork.com/freelancers/~01ae4dee8c64d93296"><img style="width: 108px;"src="img/freelance/upwork.png"></a>
@@ -739,11 +736,38 @@
                         <div>
                             <h3 class="about-section__title">Datos</h3>
                             <ul class="about-section__list">
+                                 <div class="site-header__actions">
+                                    <a href="https://es.linkedin.com/in/oscaralaber" target="_blank" class="button button--cta" style="border-radius: 8px;">LinkedIn</a>
+                                   <div class="contact-button-wrapper">
+                                        <button id="contact-toggle" class="button button--cta">Contacto</button>
+                                        
+                                        <div id="contact-bubble" class="contact-bubble">
+                                            <div class="contact-bubble__content">
+                                                <!-- Teléfono -->
+                                                <a href="tel:+34635770952" class="contact-bubble__item">
+                                                    <span class="contact-bubble__icon">📞</span>
+                                                    <span class="contact-bubble__text">
+                                                        <span class="contact-bubble__label">Teléfono</span>
+                                                        <span class="contact-bubble__value">+34 635 77 09 52</span>
+                                                    </span>
+                                                </a>
+                                                
+                                                <!-- Email -->
+                                                <a href="mailto:oalaber@icloud.com" class="contact-bubble__item">
+                                                    <span class="contact-bubble__icon">✉️</span>
+                                                    <span class="contact-bubble__text">
+                                                        <span class="contact-bubble__label">Email</span>
+                                                        <span class="contact-bubble__value">oalaber@icloud.com</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    </div> 
+                                        <!-- Overlay para cerrar al hacer clic fuera -->
+                                       <div id="contact-bubble-overlay" class="contact-bubble-overlay"></div>
                                 
-                                <li><strong>Residencia:</strong> Madrid, España</li>
-                                <li><strong>Email:</strong> oalaber@icloud.com</li>
-                                <li><strong>Teléfono:</strong> +34 635 77 09 52</li>
-                                <li></li>
                             </ul>
                         </div>
                         <div>
@@ -751,7 +775,7 @@
                             <ul class="about-section__list">
                                 <li><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/salesianos-atocha.jpeg"><strong>Salesianos de Atocha</strong><br>Diseño y Artes Gráficas (2004-2006)</li><br>
                                 <li><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/cice.jpg"><strong>Cice, Escuela de nuevas tecnologías</strong><br>Master en Diseño y Desarrollo Web (2018-2020) en colaboración con la Universidad de Alcalá de Henares.</li><br>
-                                 <li><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/lagasca-serrano.jpg"><strong>Escuela Lagasca</strong><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/eie.png"><br>Certificación oficial de programación, desarrollo y publicación de paginas web (03-2025 - 10-2025) - Certificacióm Nivel 2 - Oficial - Ministerio de Educación</li>
+                                 <li><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/lagasca-serrano.jpg"><strong>Escuela Lagasca Serrano</strong><img style="width: 50px; margin-right: 10px; border-radius: 8px;" src="img/freelance/eie.png"><br>Certificación Oficial de creacion y publicación de paginas web (03-2025 - 10-2025) - Certificacióm Nivel 2 - Oficial - Ministerio de Educación</li>
                             </ul>
                         </div>
                     </div>
@@ -960,6 +984,51 @@
     </section>
     <!-- SCRIPT CONSOLIDADO -->
     <script>
+        const contactToggle = document.getElementById('contact-toggle');
+const contactBubble = document.getElementById('contact-bubble');
+const contactOverlay = document.getElementById('contact-bubble-overlay');
+
+if (contactToggle && contactBubble) {
+    // Toggle al hacer clic en el botón
+    contactToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isVisible = contactBubble.classList.contains('contact-bubble--is-visible');
+        
+        if (isVisible) {
+            closeBubble();
+        } else {
+            openBubble();
+        }
+    });
+    
+    // Cerrar al hacer clic en el overlay
+    if (contactOverlay) {
+        contactOverlay.addEventListener('click', closeBubble);
+    }
+    
+    // Cerrar con tecla Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && contactBubble.classList.contains('contact-bubble--is-visible')) {
+            closeBubble();
+        }
+    });
+    
+    function openBubble() {
+        contactBubble.classList.add('contact-bubble--is-visible');
+        if (contactOverlay) {
+            contactOverlay.classList.add('contact-bubble-overlay--is-visible');
+        }
+    }
+    
+    function closeBubble() {
+        contactBubble.classList.remove('contact-bubble--is-visible');
+        if (contactOverlay) {
+            contactOverlay.classList.remove('contact-bubble-overlay--is-visible');
+        }
+    }
+}
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- DATOS DE LA APLICACIÓN ---
@@ -1332,6 +1401,7 @@
                 applyTheme(isDarkMode);
             });
         });
+        
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
